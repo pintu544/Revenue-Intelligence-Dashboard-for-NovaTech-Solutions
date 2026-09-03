@@ -72,8 +72,4 @@ These projects are planned for the same NovaTech org and will be added to this r
 
 ---
 
-## About Me
 
-I am a Salesforce Administrator and CRM Business Analyst building a portfolio of real-world projects across Salesforce administration, Flow automation, CRM configuration and sales analytics.
-
-LinkedIn: https://www.linkedin.com/in/michael-adedayo-dami/
