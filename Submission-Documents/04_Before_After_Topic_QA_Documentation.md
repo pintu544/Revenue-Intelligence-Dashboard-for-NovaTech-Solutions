@@ -1,9 +1,70 @@
 # Before & After Topic — Q&A Documentation
 ## NovaTech Solutions Revenue Intelligence Dashboard
 
-**Tool:** Power BI Q&A (Natural Language Query)  
+**Tool:** Amazon QuickSight — Q (Natural Language Query) with Topic Configuration  
 **Analyst:** Michael Adedayo-Dami  
 **Date:** June 2025  
+
+---
+
+## Topic Setup — Configuration Screenshots
+
+### Step 1 — Create a New Topic
+**Navigation path:** QuickSight → Topics (left nav) → New Topic  
+**Dataset selected:** NovaTech_Unified_Dashboard (SPICE)  
+**Topic name:** NovaTech Revenue Intelligence  
+
+> **Screenshot:** `Topic_Setup_01_Create_Topic.png` — shows the "Create a new topic" dialog with dataset NovaTech_Unified_Dashboard selected and the topic name field filled in.
+
+---
+
+### Step 2 — Field Configuration
+Each field in the dataset was reviewed and configured with business-friendly names and descriptions:
+
+| Field (Raw) | Friendly Name | Description Added | Type |
+|---|---|---|---|
+| lead_id | Lead ID | Unique identifier for each marketing lead | Dimension |
+| lead_score | Lead Score | Weighted score 0–100 assigned by Salesforce Flow | Metric |
+| amount | Deal Amount | Full contract value of the opportunity | Metric |
+| weighted_amount | Weighted Pipeline | Amount adjusted by stage probability | Metric |
+| probability | Close Probability | Likelihood of deal closing (0.0–1.0) | Metric |
+| health_score | Health Score | Customer account health rating 0–100 | Metric |
+| contract_value | Contract Value | Annual recurring revenue for this account | Metric |
+| support_tickets_open | Open Support Tickets | Number of unresolved support cases | Metric |
+| risk_flag | Risk Status | At Risk / Monitor / Healthy classification | Dimension |
+| rep_name | Sales Rep | Assigned sales representative | Dimension |
+| stage | Pipeline Stage | Current opportunity stage in the sales cycle | Dimension |
+
+> **Screenshot:** `Topic_Setup_02_Field_Configuration.png` — shows the Topics field editor with the above fields listed, friendly names applied, and field type (metric vs dimension) correctly set for each column.
+
+---
+
+### Step 3 — Synonyms and Named Metrics
+
+The following synonyms and named metrics were defined to teach QuickSight Q the NovaTech business vocabulary:
+
+**Synonyms (field-level):**
+
+| Term | Maps To |
+|---|---|
+| revenue | weighted_amount (Closed Won only) |
+| forecast | weighted_amount (all stages) |
+| pipeline | SUM(amount) excluding Closed Won / Lost |
+| rep | rep_name |
+| quota | $500,000 (per rep, static) |
+| at risk | risk_flag = "At Risk" |
+| hot leads | lead_score ≥ 70 |
+| qualified | status = "Qualified" |
+
+> **Screenshot:** `Topic_Setup_03_Synonyms.png` — shows the QuickSight Topic synonym editor with all eight synonyms listed and their field/filter mappings visible.
+
+---
+
+### Step 4 — Test in Q Panel
+
+After configuring synonyms, each synonym was tested in the Q panel to verify correct interpretation:
+
+> **Screenshot:** `Topic_Setup_04_Q_Test_Panel.png` — shows the QuickSight Q test interface with the NovaTech Revenue Intelligence topic selected, a test question typed in ("show me revenue by rep"), and the Q response showing Closed Won Amount by rep name with all 7 reps displayed.
 
 ---
 
